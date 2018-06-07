@@ -1,0 +1,137 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: jancarlo
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                   name: id
+                   type: int
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+  - changeSet:
+        id: 2
+        author: jancarlo
+        changes:
+          - createTable:
+              tableName: roles
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: name
+                    type: varchar(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: description
+                    type: varchar(255)
+                    constraints:
+                      nullable: false
+  - changeSet:
+        id: 3
+        author: jancarlo
+        changes:
+          - createTable:
+              tableName: users_roles
+              columns:
+                - column:
+                    name: user_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_users_id
+                      references: users(id)
+                - column:
+                    name: role_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_role_id
+                      references: roles(id)
+  - changeSet:
+        id: 4
+        author: jancarlo
+        changes:
+          - createTable:
+              tableName: Persondas
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: name
+                    type: varchar(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: adress
+                    type: varchar(300)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: phone
+                    type: varchar(10)
+                    constraints:
+                      nullable: true
+                - column:
+                    name: update
+                    type: date
+                    constraints:
+                      nullable: false
+
+
+   - changeSet:
+          id: 4
+          author: jancarlo
+          changes:
+            - createTable:
+                tableName: Prueba2
+                columns:
+                  - column:
+                      name: id
+                      type: int
+                      autoIncrement: true
+                      constraints:
+                        primaryKey: true
+                        nullable: false
+                  - column:
+                      name: name
+                      type: varchar(30)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: description
+                      type: varchar(255)
+                      constraints:
+                        nullable: false

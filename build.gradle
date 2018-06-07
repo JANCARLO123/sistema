@@ -1,0 +1,94 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/libs-release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+ext {
+    jqueryVersion = '3.3.1'
+    bootstrapVersion = '4.1.0'
+    jqueryUIVersion = '1.12.1'
+    d3Version = '5.4.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.jcvp.cremeria'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/libs-release" }
+}
+
+
+dependencies {
+
+    compile('org.springframework.boot:spring-boot-starter'){
+        exclude group: 'org.springframework.boot:spring-boot-starter-logging'}
+
+      //ActiveMQ
+    compile('org.springframework.boot:spring-boot-starter-activemq'){
+        exclude group: 'org.springframework.boot:spring-boot-starter-logging'}
+    compile('org.apache.activemq:activemq-broker')
+    compile('com.fasterxml.jackson.core:jackson-core')
+    compile('com.fasterxml.jackson.core:jackson-databind')
+
+
+   //web
+    compile('org.springframework.boot:spring-boot-starter-web'){
+        exclude group: 'org.springframework.boot:spring-boot-starter-logging'}
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf'){
+        exclude group: 'org.springframework.boot:spring-boot-starter-logging'}
+
+    //js
+    compile("org.webjars:jquery:${jqueryVersion}")
+    compile("org.webjars:jquery-ui:${jqueryUIVersion}")
+    compile("org.webjars:bootstrap:${bootstrapVersion}")
+    compile("org.webjars:d3js:${d3Version}")
+    //compile('org.springframework.boot:spring-boot-starter-security'){
+    //        exclude module:'spring-boot-starter-logging'}
+    //compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+
+    runtime('org.springframework.boot:spring-boot-devtools')
+
+    //database
+    runtime('com.h2database:h2')
+    compile('org.liquibase:liquibase-core')
+
+    //util
+    compileOnly('org.projectlombok:lombok')
+    // Log4j2 Dependenices
+    compile ("org.springframework.boot:spring-boot-starter-log4j2"){
+    //compile ("org.apache.logging.log4j:log4j-core")
+    //compile ("org.apache.logging.log4j:log4j-api")
+     //mail
+    compile('org.springframework.boot:spring-boot-starter-mail')
+
+    compile ("org.apache.commons:commons-lang3:3.4")
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
+configurations {
+     all*.exclude module : 'spring-boot-starter-logging'
+}
